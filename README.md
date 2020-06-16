@@ -10,7 +10,7 @@ Our attack and defense experiments are conducted based on a new dataset, which i
 
 In order to compare the effectiveness of vulnerability detectors operating at different granularities (i.e., function vs. program slice), we take vulnerable (i.e., positive) examples and non-vulnerable (i.e., negative) examples at the granularity of function as the ground truth, because each vulnerability can map to a function and each function has at most one vulnerability in our dataset.
 
-The manipulated programs are obtained by applying 8 code transformations, which are selected from what are offered by the source-to-source tool known as [Tigress](https://tigress.wtf/). These 8 transformations are shown in the following table. 
+The manipulated programs are obtained by applying 8 code transformations, which are selected from what are offered by the source-to-source tool known as [Tigress](https://tigress.wtf/). These 8 transformations, involving 2 data transformations and 6 code transformatinos, are shown in the following table. 
 
 
 |Type|Description|
