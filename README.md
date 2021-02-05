@@ -6,7 +6,7 @@ We initiate the study on the robustness of DL-based vulnerability detectors. We 
 
 ## Dataset ##
 
-Our attack and defense experiments are conducted based on a new dataset, which is derived from the National Vulnerability Database (NVD) and Software Assurance Reference Dataset (SARD). The dataset contains 12,724 programs and their manipulated programs, which lead to 55,032 vulnerable examples and 90,938 non-vulnerable examples at the granularity of function, while noting that a program may contain multiple examples. 
+Our attack and defense experiments are conducted based on a new dataset, which is derived from the National Vulnerability Database (NVD) and Software Assurance Reference Dataset (SARD). The dataset contains 6,803 programs and their manipulated programs, which lead to 50,562 vulnerable examples and 80,043 non-vulnerable examples at the granularity of function, while noting that a program may contain multiple examples. 
 
 In order to compare the effectiveness of vulnerability detectors operating at different granularities (i.e., function vs. program slice), we take vulnerable (i.e., positive) examples and non-vulnerable (i.e., negative) examples at the granularity of function as the ground truth, because each vulnerability can map to a function and each function has at most one vulnerability in our dataset.
 
