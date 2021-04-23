@@ -1,4 +1,4 @@
-# Robustness of Deep Learning-based Vulnerability Detectors #
+# Towards Making Deep Learning-based Vulnerability Detectors Robust
 
 We propose the ZigZag framework to improve the robustness of existing deep learning-based detectors. The key idea is to seperate feature learning from classifier learning, which makes the learned features and classifiers “constant” to code transformations.
 
