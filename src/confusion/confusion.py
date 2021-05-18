@@ -5,7 +5,6 @@ import random
 import xlrd
 import pickle
 import csv
-#os.system("/home/hjm/Desktop/neo4j-community-2.1.8/bin/neo4j console")
 
 def randomstr():
     Str = ' '
@@ -98,7 +97,7 @@ def confusion(file_path,taget_path,flag):
     elif con_type == 1:
         confusiontype1(file_path,taget_path)
     else:
-        print('错误')
+        print('error')
 
 
 def Recursive_processing (file_path,taget_path,flag):
@@ -129,11 +128,11 @@ global type2_path
 global type3_path
 global type3_path1
 global con_type
-type4_path = '/home/tangjin/data1/tigress-2.1'                      
+type4_path = '/home/data/tigress-2.1'                      
 #type3_path = '/home/Desktop/llvm-clang-samples-master'              
 #type3_path1 = '/home/Documents/tigress-2.1'            
 type3_path = 'con3.py'
-type2_path = '/home/lz/tj/Software/Stunnix-CXX'    
+type2_path = '/home/Software/Stunnix-CXX'    
 con_type = 4
     
 file_path = './test'
