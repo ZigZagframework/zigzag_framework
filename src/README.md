@@ -25,11 +25,9 @@ joern 0.3.1（jdk 1.7）, neo4j 2.1.5, python 2.7
 
 7. dealfile.py: This file is used to get the line numbers of vulnerable lines in nvd dataset.The input are source code files or func files and diff files.
 
-8. getVulLineForCounting.py:
+8. getVulLineForCounting.py: This file is used to extract the line numbers of vulnerable lines from SARD_testcaseinfo.xml. "000" is the source code file. The output is SARD_testcaseinfo.txt, and then renamed as contain_all.txt.
 
 > python getVulLineForCounting.py ./000 ./SARD_testcaseinfo.xml
-
-This file is used to extract the line numbers of vulnerable lines from SARD_testcaseinfo.xml. "000" is the source code file. The output is SARD_testcaseinfo.txt, and then renamed as contain_all.txt.
 
 9. make_label_sard.py: This file is used to get labels of sard slices.
 
