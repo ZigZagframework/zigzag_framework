@@ -9,7 +9,7 @@ python 3.6,tigress 2.1
 
 ## Step 2: Generating slices (i.e., SeVCs)
 Environment: 
-joern 0.3.1（jdk 1.7）, neo4j 2.1.5, python 2.7
+joern 0.3.1 (jdk 1.7), neo4j 2.1.5, python 2.7
 
 1. Use joern to parse source code: the input is source code files, and the output is a file named .joernIndex.
 
