@@ -3,12 +3,12 @@ Environment:
 python 3.6,tigress 2.1
 1. labeltest.py: This file is used to add 'test_insert();' in the source code to mark the vulnerable lines.
 
-2. confusion.py: This file is uesd to do code transformation.
+2. transform.py: This file is uesd to do code transformation.
 
 3. new_label_con.py : This file is used to get the vulnerable lines in transformed code.
 
-## Step 2: Generating codegadget
-i.e. code slices(SySeVR:https://github.com/SySeVR/SySeVR)
+## Step 2: Generating code fragments
+For example, generate program slices (SySeVR: https://github.com/SySeVR/SySeVR).
 
 ## Step 3: Data preprocess
 Environment: 
