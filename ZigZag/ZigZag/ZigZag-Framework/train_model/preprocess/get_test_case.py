@@ -41,15 +41,16 @@ def split_list(alist, group_num=4, shuffle=True, retain_left=False):
         sub_lists['set' + str(idx)] = subset(alist, index[start:end])
 
     # 是否将最后剩余的元素作为单独的一组
-    if retain_left and group_num * elem_num != len(index):  # 列表元素数量未能整除子列表数，需要将最后那一部分元素单独作为新的列表
+    # 列表元素数量未能整除子列表数，需要将最后那一部分元素单独作为新的列表
+    if retain_left and group_num * elem_num != len(index):
         sub_lists['set' + str(idx + 1)] = subset(alist, index[end:])
 
     return sub_lists
 
 
 if __name__ == '__main__':
-    trainDatasetPath = "/data1/yjy/dataset/zigzag/input-step-15/test/"
-    write_path = '/data1/yjy/dataset/zigzag/test_case'
+    trainDatasetPath = "./dataset/zigzag/input-step-15/test/"
+    write_path = './dataset/zigzag/test_case'
     # 1.获取所有文件列表pkl
     all_file_full_path_list = []
     all_file_name_list = []
@@ -78,6 +79,6 @@ if __name__ == '__main__':
         pkl_name = os.path.join(write_path, file_name + '.pkl')
         # data2pkl(sub_lists[file_name], pkl_name)
     #
-    # test_case_name = '/data1/yjy/dataset/zigzag/input-step-15/test_case_set.csv'
+    # test_case_name = './dataset/zigzag/input-step-15/test_case_set.csv'
     # with open(test_case_name, 'a+') as fwrite:
     #     fwrite.write(test_case_set)

@@ -23,7 +23,8 @@ def return_last_count(file_name, model_path, model_name_list):
     cycle_num = 0
     if not os.path.exists(file_name):
         with open(file_name, 'a+') as fwrite:
-            fwrite.write(f"model_name,acc,precision,recall,F1,tn,tp,fp,fn,fpr,fnr\n")
+            fwrite.write(
+                f"model_name,acc,precision,recall,F1,tn,tp,fp,fn,fpr,fnr\n")
         model_name = os.path.join(model_path, model_name_list[0])
         return load_model(model_name), cycle_num
     cnt = len(open(file_name, encoding="utf-8").readlines())
@@ -51,7 +52,9 @@ def load_data_once(dataset_path):
     """
     all_file_full_path_list = []
     all_file_name_list = []
-    all_file_full_path_list, *_ = get_all_files(dataset_path, all_file_full_path_list, all_file_name_list)
+    all_file_full_path_list, * \
+        _ = get_all_files(
+            dataset_path, all_file_full_path_list, all_file_name_list)
     dataset, labels = load_file_list(all_file_full_path_list)
     return dataset, labels
 
@@ -167,14 +170,14 @@ def load_test_data(test_dataset_path):
 #     vectorDim = 40
 #     maxLen = 500
 #     dropout = 0.2
-#     trainDatasetPath = "/data1/yjy/dataset/zigzag/test_case/"  # 数据save path
-#     validationDatasetPath = "/data1/yjy/dataset/zigzag/pass_hp/validation/"
-#     testDataSetPath = "/data1/yjy/dataset/zigzag/pass_hp/test/"
+#     trainDatasetPath = "./dataset/zigzag/test_case/"  # 数据save path
+#     validationDatasetPath = "./dataset/zigzag/pass_hp/validation/"
+#     testDataSetPath = "./dataset/zigzag/pass_hp/test/"
 #     serialNumber = 'mcd0428'  # 日期
 #     modelKind = 'BGRU'  # select model
 #     predThreshold = 0.5  # 分类正确的 Threshold
-#     modelPath = "/data1/yjy/dataset/zigzag/model"  # model save path，需要save用户 path-/
-#     resultPath = '/data1/yjy/dataset/zigzag/result'  # result save path
+#     modelPath = "./dataset/zigzag/model"  # model save path，需要save用户 path-/
+#     resultPath = './dataset/zigzag/result'  # result save path
 #     all_file_full_path_list = []
 #     all_file_name_list = []
 #     all_file_full_path_list, all_file_name_list = get_all_files(trainDatasetPath, all_file_full_path_list,

@@ -117,15 +117,15 @@ if __name__ == "__main__":
     # generate  300 pieces of data to test the feasibility of the initial code
     # generate  About 2000 data tests show whether the train loss can be reduced to close to 0 after several epochs.
     # Verify the model performance on the small s example set of 10000 or 100000 levels, and analyze the sensitivity of super parameters.
-    # cd /home/yjy/code/keras/zigzag-master/preprocess/
+    # cd ./code/keras/zigzag-master/preprocess/
     # sudo nohup python -u product_train_data.py > product_train_data.txt 2>&1
     vector_dim = 40
     max_len = 500
     step_num = 40
     file_len = 640  # Single file  len
-    all_corpus = "/data1/yjy/dataset/SARD/corpus"
-    all_vector = "/data1/yjy/dataset/zigzag/input-step40/"
-    w2v_model_path = "/data1/yjy/model/w2v_model/"
+    all_corpus = "./dataset/SARD/corpus"
+    all_vector = "./dataset/zigzag/input-step40/"
+    w2v_model_path = "./model/w2v_model/"
     os.makedirs(all_vector, exist_ok=True)
     w2v_model_name = 'w2v-all-20220311.model'
     w2v_model = os.path.join(w2v_model_path, w2v_model_name)

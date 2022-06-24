@@ -38,7 +38,8 @@ def gen_statistics_data(from_data, to_data, step):
         select_labels = labels[start:end]
         pkl_name = 'set' + str(index)
         os.makedirs(os.path.join(to_data, pkl_name), exist_ok=True)
-        utils.data2pkl([select_dataset, select_labels], os.path.join(to_data, pkl_name, 'data.pkl'))
+        utils.data2pkl([select_dataset, select_labels],
+                       os.path.join(to_data, pkl_name, 'data.pkl'))
 
 
 def gen_statistics_data_sep(from_data, to_data, step):
@@ -78,20 +79,25 @@ def gen_statistics_data_sep(from_data, to_data, step):
         tigress_select_dataset = tigress_dataset[tigress_start:tigress_end]
         tigress_select_labels = tigress_labels[tigress_start:tigress_end]
         pkl_name = 'set' + str(index)
-        select_dataset = np.concatenate([origin_select_dataset, tigress_select_dataset], axis=0)
-        select_labels = np.hstack([origin_select_labels, tigress_select_labels])
+        select_dataset = np.concatenate(
+            [origin_select_dataset, tigress_select_dataset], axis=0)
+        select_labels = np.hstack(
+            [origin_select_labels, tigress_select_labels])
         os.makedirs(os.path.join(to_data, pkl_name), exist_ok=True)
-        utils.data2pkl([select_dataset, select_labels], os.path.join(to_data, pkl_name, 'data.pkl'))
+        utils.data2pkl([select_dataset, select_labels],
+                       os.path.join(to_data, pkl_name, 'data.pkl'))
 
 
-def gen_f1(metrics_file, test_data,model_metrics):
+def gen_f1(metrics_file, test_data, model_metrics):
     # 生成20组F1
     f_score_list = []
     with open(metrics_file, 'a+') as f_write:
-        f_write.write(f"model_name,acc,precision,recall,F1,tn,tp,fp,fn,fpr,fnr\n")
+        f_write.write(
+            f"model_name,acc,precision,recall,F1,tn,tp,fp,fn,fpr,fnr\n")
     for index in range(20):
         model_name = 'set' + str(index)
-        acc, f_score = evaluation_stat(os.path.join(test_data, model_name), model_metrics, metrics_file, 0.4, model_name)
+        acc, f_score = evaluation_stat(os.path.join(
+            test_data, model_name), model_metrics, metrics_file, 0.4, model_name)
         f_score_list.append(round(f_score, 5))
     print(f_score_list)
     return f_score_list
@@ -198,20 +204,20 @@ def load_file_list(file_path_list):
 
 
 if __name__ == '__main__':
-    fromData = "/data1/yjy/dataset/zigzag/input-step-15/test/"
-    model_path = "/data1/yjy/dataset/zigzag/model/static_f1/12model-3.21.h5"
+    fromData = "./dataset/zigzag/input-step-15/test/"
+    model_path = "./dataset/zigzag/model/static_f1/12model-3.21.h5"
     metricsName = "12model-3.21-step-sep.csv"
-    metricsFile = "/data1/yjy/dataset/zigzag/model/static_f1/" + metricsName
+    metricsFile = "./dataset/zigzag/model/static_f1/" + metricsName
     model = load_model(model_path)
     c1_model, c2_model = generator_eva_model(model)
-    f1_log = '/data1/yjy/dataset/zigzag/statistics_success/f1_log.csv'
+    f1_log = './dataset/zigzag/statistics_success/f1_log.csv'
     with open(f1_log, 'a+') as fwrite:
         fwrite.write(f"index,step,F1_list,Cohensd,R2\n")
     # 1.找数据，20组，失败就覆盖，成功就break
     for idx in range(1000):
         RANDOMSEED = idx
         for sp in [100, 200, 300]:
-            toData = os.path.join("/data1/yjy/dataset/zigzag/", 'statistics_find')
+            toData = os.path.join("./dataset/zigzag/", 'statistics_find')
             gen_statistics_data_sep(fromData, toData, sp)
             f1_list = gen_f1(sp, toData)
             flag, d, R2 = check_distribution(f1_list)
@@ -222,7 +228,7 @@ if __name__ == '__main__':
                     fwrite.write(
                         f"{idx},{sp},{f1_list_str},{d:.5f},{R2:.5f}\n")
                 print('RANDOMSEED', idx)
-                savePlace = os.path.join("/data1/yjy/dataset/zigzag/", 'statistics_success',
+                savePlace = os.path.join("./dataset/zigzag/", 'statistics_success',
                                          'success_' + str(sp) + '_' + str(idx))
                 os.makedirs(savePlace, exist_ok=True)
                 mv_file_command = 'mv  ' + toData + '  ' + savePlace

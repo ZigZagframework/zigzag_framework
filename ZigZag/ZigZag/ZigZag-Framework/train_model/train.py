@@ -55,7 +55,8 @@ def train_begin(model_path, train_times):
             testDataSetPath, model_last, metricsFile, predThreshold, model_name)
     if is_find_hard:
         hard_file_name = 'hard-' + serialNumber
-        del_hard_file_command, hard_file_path = hard_name_and_path(datePath, hard_file_name)
+        del_hard_file_command, hard_file_path = hard_name_and_path(
+            datePath, hard_file_name)
     else:
         hard_file_name = 'tigress'
     while i < train_times:
@@ -68,7 +69,8 @@ def train_begin(model_path, train_times):
         print('model3.21 eval result ---------------------------------')
         if is_find_hard:
             os.makedirs(hard_file_path, exist_ok=True)
-            find_hard_examples(datePath, model_last, predThreshold, fileLen, hard_file_name)
+            find_hard_examples(datePath, model_last,
+                               predThreshold, fileLen, hard_file_name)
         acc, f_score = evaluation_with_predict(
             testDataSetPath, model_last, metricsFile, predThreshold, model_name)
         # stop early
@@ -101,27 +103,28 @@ def train_begin(model_path, train_times):
         if is_find_hard:
             os.system(del_hard_file_command)
         i = i + 1
-        print('----------- loop times: ' + str(i) + '--train  end ------------------')
+        print('----------- loop times: ' + str(i) +
+              '--train  end ------------------')
 
 
 def hard_name_and_path(date_path, hard_file_name):
-    # rm -rf /data1/yjy/dataset/zigzag/data-step-20/hard/*
+    # rm -rf ./dataset/zigzag/data-step-20/hard/*
     hard_file_path = os.path.join(date_path, 'train', hard_file_name)
     del_hard_file_command = 'rm -rf ' + hard_file_path
     print(del_hard_file_command)
     return del_hard_file_command, hard_file_path
 
 
-# /home/yjy/code/zigzag/zigzag03/zigzag/
-# /data1/yjy/dataset/zigzag/model/
+# ./code/zigzag/zigzag03/zigzag/
+# ./dataset/zigzag/model/
 if __name__ == "__main__":
     batchSize = 64
     vectorDim = 40
     maxLen = 500
     dropout = 0.2
-    datePath = '/data1/yjy/dataset/zigzag/input-step-15'
-    modelPathAll = "/data1/yjy/dataset/zigzag/model"
-    resultPath = '/data1/yjy/dataset/zigzag/result'  # result save path
+    datePath = './dataset/zigzag/input-step-15'
+    modelPathAll = "./dataset/zigzag/model"
+    resultPath = './dataset/zigzag/result'  # result save path
     model_name_list = ['model-3.1.h5', 'model-3.21.h5',
                        'model-3.22.h5', 'model-3.3.h5']
     is_find_hard = False

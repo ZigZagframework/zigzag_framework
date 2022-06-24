@@ -10,7 +10,7 @@ import os
 
 def mv_1():
     order_s = 'mv'
-    corpus_path = '/home/yjy/code/keras/zigzag-master/data/corpus-vector/'
+    corpus_path = './code/keras/zigzag-master/data/corpus-vector/'
     file_list = ['array_slices', 'api_slices', 'pointer_slices', 'expr_slices']
     for corpus_files in file_list:
         p1 = os.path.join(corpus_path, corpus_files)
@@ -40,15 +40,15 @@ def mv_1():
                     print(os.system(order_mv))
 
 
-# from_file = "/home/yjy/code/keras/zigzag-master/data/corpus-vector/train/origin/data-1537.pkl"
+# from_file = "./code/keras/zigzag-master/data/corpus-vector/train/origin/data-1537.pkl"
 #
-# to_path = '/home/yjy/code/keras/zigzag-master/data/corpus-vector/train/origin/origin-data-1537.pkl'
+# to_path = './code/keras/zigzag-master/data/corpus-vector/train/origin/origin-data-1537.pkl'
 # order_s = 'mv' + '  ' + from_file + '  ' + to_path
 # print(order_s)
 
 def mv_train_test():
     order_s = 'mv'
-    corpus_path = '/data1/yjy/dataset/SARD/corpus/'
+    corpus_path = './dataset/SARD/corpus/'
     file_list = ['array_slices', 'api_slices', 'pointer_slices', 'expr_slices']
     for corpus_files in file_list:
         p1 = os.path.join(corpus_path, corpus_files)
@@ -81,7 +81,7 @@ def mv_train_test():
 
 def file_len():
     order_s = 'mv'
-    corpus_path = '/data1/yjy/dataset/SARD/corpus/'
+    corpus_path = './dataset/SARD/corpus/'
     file_list = ['array_slices', 'api_slices', 'pointer_slices', 'expr_slices']
     for corpus_files in file_list:
         p1 = os.path.join(corpus_path, corpus_files)

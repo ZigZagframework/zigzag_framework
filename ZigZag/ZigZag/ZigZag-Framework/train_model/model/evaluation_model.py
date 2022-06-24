@@ -148,8 +148,10 @@ def evaluation_with_predict(test_dataset_path, model_last, result_file, pred_thr
     y2_pred = c2_model.predict(test_dataset)
 
     y_true.reshape(-1, 1)
-    acc1, f_score1 = metrics_p(y1_pred, pred_threshold, y_true, result_file, train_step)
-    acc2, f_score2 = metrics_p(y2_pred, pred_threshold, y_true, result_file, train_step)
+    acc1, f_score1 = metrics_p(
+        y1_pred, pred_threshold, y_true, result_file, train_step)
+    acc2, f_score2 = metrics_p(
+        y2_pred, pred_threshold, y_true, result_file, train_step)
 
     return max(acc1, acc2), max(f_score1, f_score2)
 
@@ -159,7 +161,8 @@ def evaluation_stat(test_dataset_path, model_last, result_file, pred_threshold, 
     y1_pred = model_last.predict(test_dataset)
 
     y_true.reshape(-1, 1)
-    acc1, f_score1 = metrics_p(y1_pred, pred_threshold, y_true, result_file, train_step)
+    acc1, f_score1 = metrics_p(
+        y1_pred, pred_threshold, y_true, result_file, train_step)
 
     return acc1, f_score1
 
@@ -172,13 +175,13 @@ def evaluation_origin_data():
 #     vectorDim = 40
 #     maxLen = 500
 #     dropout = 0.2
-#     trainDatasetPath = "/data1/yjy/dataset/zigzag/pass_hp/train/"  # 数据save path
-#     validationDatasetPath = "/data1/yjy/dataset/zigzag/pass_hp/validation/"
-#     testDataSetPath = "/data1/yjy/dataset/zigzag/pass_hp/test/"
+#     trainDatasetPath = "./dataset/zigzag/pass_hp/train/"  # 数据save path
+#     validationDatasetPath = "./dataset/zigzag/pass_hp/validation/"
+#     testDataSetPath = "./dataset/zigzag/pass_hp/test/"
 #     serialNumber = '20220407-1'  # 日期
 #     modelKind = 'BGRU'  #  select model
 #     predThreshold = 0.5  # 分类正确的 Threshold
-#     modelPath = "/home/yjy/code/zigzag/data/model"  # model save path，需要save用户 path-
+#     modelPath = "./code/zigzag/data/model"  # model save path，需要save用户 path-
 #     resultPath = 'data/result'  #  result save path
 #     modelPath = os.path.join(modelPath, modelKind, serialNumber)
 #     resultPath = os.path.join(resultPath, modelKind, serialNumber)
@@ -186,9 +189,9 @@ def evaluation_origin_data():
 #     os.makedirs(resultPath, exist_ok=True)
 #     # model_file = os.path.join(modelPath, '20220407-1-3.1.h5')
 #     model_path = os.path.join(modelPath, 'model3.1-15-0.07991-0.95752-val.h5')
-#     model_file = "/home/yjy/code/zigzag/data/model/BGRU/20220407-1/20220407-1-3.1.h5"
+#     model_file = "./code/zigzag/data/model/BGRU/20220407-1/20220407-1-3.1.h5"
 #     print(model_file)
-#     for file in os.listdir('/home/yjy/code/zigzag/data/model/BGRU/20220407-1/'):
+#     for file in os.listdir('./code/zigzag/data/model/BGRU/20220407-1/'):
 #         print(file)
 #     evaluation_with_predict(testDataSetPath, batchSize, maxLen, vectorDim, modelPath, model_file, predThreshold)
 #

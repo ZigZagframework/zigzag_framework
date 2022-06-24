@@ -4,15 +4,15 @@ Description: This python file is used to train word2vec model , and save the wor
 Date: 2022-02-28 10:59:32
 LastEditTime: 2022-03-06 12:24:40
 """
+import time
+import gc
+import pickle
+from gensim.models.keyedvectors import KeyedVectors
+from gensim.models.word2vec import Word2Vec
 import os
 import sys
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../')))
-from gensim.models.word2vec import Word2Vec
-from gensim.models.keyedvectors import KeyedVectors
-import pickle
-
-import gc
-import time
+sys.path.append(os.path.abspath(
+    os.path.join(os.path.dirname(__file__), '../')))
 
 
 class DirofCorpus(object):
@@ -77,8 +77,8 @@ def evaluate_w2v_model(w2v_model):
 
 
 def main():
-    corpus_path = '/data1/yjy/dataset/SARD/corpus/'
-    w2v_model_path = "/home/yjy/code/keras/zigzag/data/w2v_model/"
+    corpus_path = './dataset/SARD/corpus/'
+    w2v_model_path = "./code/keras/zigzag/data/w2v_model/"
     date_s = '20220311'
     os.makedirs(w2v_model_path, exist_ok=True)
     w2v_model = 'w2v-all-' + date_s + '.model'
@@ -90,8 +90,8 @@ def main():
     print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
 
 
-# /home/yjy/code/keras/zigzag-master/preprocess/
-# /data1/yjy/dataset/SARD/corpus/expr_slices/
+# ./code/keras/zigzag-master/preprocess/
+# ./dataset/SARD/corpus/expr_slices/
 #   export PYTHONHASHSEED=0
 #
 # nohup python -u train_w2vmodel.py > w2v_modle-all-20220311.txt 2>&1
