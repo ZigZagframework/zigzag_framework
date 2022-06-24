@@ -49,7 +49,7 @@ def make_label(path, _dict):
                 linenum = str(sentence.split(' ')[-1])
                 # print("linenum: ")
                 print(linenum)
-                if linenum not in vulline_nums:
+                if linenum not in vulline_nums and int(linenum) not in vulline_nums:
                     # print("not in")
                     continue
                 else:
