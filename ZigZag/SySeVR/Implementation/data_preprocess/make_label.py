@@ -5,7 +5,7 @@ import argparse
 
 def make_label(path, _dict):
     print(path)
-    f = open(path, 'r')
+    f = open(path, 'r', encoding="ISO-8859-1")
     slicelists = f.read()
     f.close()
     slicelists = slicelists.split('\n------------------------------\n')[:-1]
