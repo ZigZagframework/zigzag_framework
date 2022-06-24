@@ -8,7 +8,7 @@
 
 ### SARD Dataset
 
-Code is in `ZigZag-Framework/code_transform/sard-deform`, Dataset is in `Dataset\train_programs` and `Dataset\target_programs`
+Code is in `ZigZag-Framework/code_transform/sard-deform`
 
 1. getVulLineForCounting.py: This file is used to extract the line numbers of vulnerable lines from SARD_testcaseinfo.xml
 2. labelFile.py: This file is used to add 'test_insert();' in the source code to mark the vulnerable lines.
