@@ -24,7 +24,7 @@ def get_hashs(slicepath, hashpath):
         datalist=[]
 
         filepath = os.path.join(slicepath, filename)
-        f1 = open(filepath, 'r')
+        f1 = open(filepath, 'r', encoding="ISO-8859-1")
         slicelists = f1.read()
         f1.close()
         slicelists = slicelists.split('\n------------------------------\n')[:-1]
@@ -46,8 +46,11 @@ def get_hashs(slicepath, hashpath):
             if sentences[-1] == '\r':
                 del sentences[-1]
 
+            tag = sentences[0].split(" ")[1]
+            print(tag)
             sentences = sentences[1:]
             new_sens = []
+            new_sens.append(tag)
             for sentence in sentences:
                 if (is_number(sentence.split(' ')[-1])) is False:
                     continue
@@ -82,8 +85,8 @@ def is_number(s):
 
 if __name__ == '__main__':
     
-    SLICEPATH = '/home/huyiwei/data/slices'
-    HASHPATH = '/home/huyiwei/data/slices/hash_slices'
+    SLICEPATH = '/home/huyiwei/data/ZigZag/slices'
+    HASHPATH = '/home/huyiwei/data/ZigZag/slices/hash_slices'
 
     sentenceDict = get_hashs(SLICEPATH, HASHPATH)
 

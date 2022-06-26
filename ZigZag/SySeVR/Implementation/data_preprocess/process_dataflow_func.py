@@ -23,25 +23,13 @@ def check_label_sard(path):
         tigressType = path.split("/")[8]
         return "Train/" + tigressType
 
-def check_label_nvd(path, train_dict, test_dict):
+def check_label_nvd(path):
     if "/home/ZigZag/Dataset/real-world-programs" in path:
         software, software_version, CVE_ID = path.split("/")[5], path.split("/")[6],path.split("/")[7]
-        if (CVE_ID, software_version) in train_dict[software]:
-            return "Train/Origin" + "/" + software + "/" + software_version + "/" + CVE_ID
-        elif (CVE_ID, software_version) in test_dict[software]:
-            return "Test/Origin" + "/" + software + "/" + software_version + "/" + CVE_ID
-        else:
-            print("Error Origin: " + path)
-            return None
+        return "Origin" + "/" + software + "/" + software_version + "/" + CVE_ID
     elif "/home/ZigZag/ZigZag-Framework/code_transform/nvd-deform/deform-dataset-v3.1" in path:
         tigressType, software, software_version, CVE_ID = path.split("/")[7], path.split("/")[8], path.split("/")[9], path.split("/")[10]
-        if (CVE_ID, software_version) in train_dict[software]:
-            return "Train/" + tigressType + "/" + software + "/" + software_version + "/" + CVE_ID
-        elif (CVE_ID, software_version) in test_dict[software]:
-            return "Test/" + tigressType + "/" + software + "/" + software_version + "/" + CVE_ID
-        else:
-            print("Error Deform: " + path)
-            return None
+        return tigressType + "/" + software + "/" + software_version + "/" + CVE_ID
 '''
 get_sentences function
 -----------------------------
@@ -58,15 +46,10 @@ def get_sentences(_path, labelpath, deletepath, corpuspath, maptype=True):
 
     for filename in os.listdir(_path):
         count_none = 0
+
         if (filename.endswith(".txt") is False):
             continue
         print(filename)
-
-        # NVD
-        with open("/home/huyiwei/data/ZigZag/train.pkl", "rb") as f:
-            train = pickle.load(f)
-        with open("/home/huyiwei/data/ZigZag/test.pkl", "rb") as f:
-            test = pickle.load(f)
 
         # mkdir <corpus> for each <filename>
         corpus_path = os.path.join(corpuspath, filename[:-4])
@@ -75,7 +58,7 @@ def get_sentences(_path, labelpath, deletepath, corpuspath, maptype=True):
 
         # Read <slices>
         filepath = os.path.join(_path, filename)
-        f1 = open(filepath, 'r')
+        f1 = open(filepath, 'r', encoding="ISO-8859-1")
         slicelists = f1.read()
         f1.close()
         slicelists = slicelists.split('\n------------------------------\n')[:-1]
@@ -137,7 +120,7 @@ def get_sentences(_path, labelpath, deletepath, corpuspath, maptype=True):
             
             # key: check label function
             # key = check_label_sard(path)
-            key = check_label_nvd(path, train, test)
+            key = check_label_nvd(path)
             if key is None:
                 count_none = count_none + 1
                 continue
