@@ -41,6 +41,7 @@ def make_label(path, _dict):
             continue
         else:
             vulline_nums = _dict[slicename]
+            vulline_nums = [str(x) for x in vulline_nums]
             print("vulline_nums: ")
             print(vulline_nums)
             for sentence in sentences:
@@ -48,16 +49,16 @@ def make_label(path, _dict):
                     continue
                 linenum = str(sentence.split(' ')[-1])
                 # print("linenum: ")
-                print(linenum)
-                if linenum not in vulline_nums and int(linenum) not in vulline_nums:
+                # print(linenum)
+                if linenum not in vulline_nums:
                     # print("not in")
                     continue
                 else:
-                    print("in")
+                    # print("in")
                     label = 1
                     break
             labels[label_key] = label
-
+            print("Label: " + str(label))
     return labels
 
 
