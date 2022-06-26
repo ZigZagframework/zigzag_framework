@@ -17,8 +17,8 @@ import sys
 # #vul_lines = []
 # for label in label_list:
 #     filename = label.split('/')
-#     file_name_label = filename[6]+filename[7]+filename[8]+'/'+filename[9]   #处理1000的
-#     #file_name_label = filename[5]+filename[6]+filename[7]+'/'+filename[8]    #处理500的
+#     file_name_label = filename[6]+filename[7]+filename[8]+'/'+filename[9]   
+#     #file_name_label = filename[5]+filename[6]+filename[7]+'/'+filename[8]  
 #     casename = file_name_label.split(' ')[0]
 #     new_filenames1.append(casename)
 #     #vulline = file_name.split(' ')[1]
@@ -104,7 +104,7 @@ def main(folder_path, save_path):
                                             if strings_index == 1:
                                                 insert_num = insert_num + 1
                                                 insert_lines.append(
-                                                    strings_index_num)  # 得到插入的所有test_insert();行在sentences列表中的位置
+                                                    strings_index_num) 
 
                                         # for insert_line in insert_lines:
                                         for i in range(0, insert_num, 2):

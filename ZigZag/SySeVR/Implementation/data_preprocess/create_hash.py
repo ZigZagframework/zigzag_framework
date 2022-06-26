@@ -85,8 +85,8 @@ def is_number(s):
 
 if __name__ == '__main__':
     
-    SLICEPATH = '/home/huyiwei/data/ZigZag/slices'
-    HASHPATH = '/home/huyiwei/data/ZigZag/slices/hash_slices'
+    SLICEPATH = './data/ZigZag/slices'
+    HASHPATH = './data/ZigZag/slices/hash_slices'
 
     sentenceDict = get_hashs(SLICEPATH, HASHPATH)
 

@@ -88,7 +88,7 @@ def main():
             temp = pickle.load(f)
             _dict.update(temp)
 
-    lang = '/home/huyiwei/data/ZigZag/slices'
+    lang = './data/ZigZag/slices'
 
     path = os.path.join(lang, 'api_slices.txt')
     list_all_apilabel = make_label(path, _dict)

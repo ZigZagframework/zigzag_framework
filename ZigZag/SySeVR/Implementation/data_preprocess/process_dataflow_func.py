@@ -221,10 +221,10 @@ def get_sentences(_path, labelpath, deletepath, corpuspath, maptype=True):
 
 if __name__ == '__main__':
     
-    SLICEPATH = '/home/huyiwei/data/ZigZag/slices/'
-    LABELPATH = '/home/huyiwei/data/ZigZag/slices/'
-    DELETEPATH = '/home/huyiwei/data/ZigZag/slices/delete/'
-    CORPUSPATH = '/home/huyiwei/data/ZigZag/slices/corpus'
+    SLICEPATH = './data/ZigZag/slices/'
+    LABELPATH = './data/ZigZag/slices/'
+    DELETEPATH = './data/ZigZag/slices/delete/'
+    CORPUSPATH = './data/ZigZag/slices/corpus'
     MAPTYPE = True
 
     sentenceDict = get_sentences(SLICEPATH, LABELPATH, DELETEPATH, CORPUSPATH, MAPTYPE)

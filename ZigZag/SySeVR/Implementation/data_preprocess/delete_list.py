@@ -25,7 +25,7 @@ def dedouble(Hashpath,Deletepath):
         f.close()
 
 if __name__ == '__main__':
-    hashpath = '/home/huyiwei/data/ZigZag/slices/hash_slices'
-    deletepath = '/home/huyiwei/data/ZigZag/slices/delete'
+    hashpath = './data/ZigZag/slices/hash_slices'
+    deletepath = './data/ZigZag/slices/delete'
 
     dedouble(hashpath,deletepath)
