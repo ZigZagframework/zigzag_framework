@@ -70,23 +70,6 @@ if __name__ == "__main__":
                 print ">>> Pass: " + batch_dir
                 continue
 
-            # if "imagemagick" in batch_log_dir:
-            #     print "pass imagemagick"
-            #     continue
-
-            if "libtiff-4.0.6_vul" in batch_log_dir or "libtiff-4.0.7_novul" in batch_log_dir:
-                print "pass libtiff"
-                continue
-
-            if "openssl-1.0.2_vul" in batch_log_dir:
-                print "pass openssl"
-                continue
-
-            if "tigressType5/ffmpeg/ffmpeg-2.8.7_novul" in batch_dir:
-                # tigress 5 "/CVE-2016-2329/CVE-2016-2329_CWE-119_89f464e9c229006e16f6bb5403c5529fdd0a9edd_tiff.c_1.1/CVE-2016-2329_CWE-119_libavcodec_tiff.c_1.1_NEW.c#tiff_decode_tag#.c"
-                print "pass ffmpeg"
-                continue
-
             mkdir(batch_log_dir)
             print split
             print "> Start: " + batch_dir + ", joern index..."
