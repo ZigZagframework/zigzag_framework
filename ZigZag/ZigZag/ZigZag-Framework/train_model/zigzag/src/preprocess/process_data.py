@@ -5,16 +5,11 @@
 """
 description：Process data
 """
-import os
 import random
 import time
 
-import numpy as np
-
-from model.bgru_generator_model import generator_eva_model
-from preprocess.load_data import *
-from tools import utils
-from numba import njit
+from src.preprocess.load_data import *
+from src.tools import utils
 
 
 def generator_of_data(data, labels, batch_size, max_len, vector_dim):
@@ -43,7 +38,7 @@ def generator_of_data(data, labels, batch_size, max_len, vector_dim):
 
 def get_file_path_list(dataset_path, secondary_directory, file_len):
     """
-        固定长度，低于file_len的文件就不要了
+       file_le
         Fixed length, below file_len don't use
     """
     file_path_list = []
@@ -123,7 +118,8 @@ def find_hard_examples(dataset_path, model_last, pred_threshold, file_len, hard_
             x_list_out = x_list[:file_len]
             y_list_out = y_list[:file_len]
             pkl_name = utils.give_file_name(len(y_list_out))
-            pkl_name = os.path.join(dataset_path, 'train', hard_file_name, pkl_name)
+            pkl_name = os.path.join(
+                dataset_path, 'train', hard_file_name, pkl_name)
             utils.data2pkl([x_list_out, y_list_out], pkl_name)
 
             x_list = x_list[file_len:]
@@ -148,7 +144,7 @@ def data_generator(file_path_list, batch_size):
         labels = np.asarray(labels)
         iter_num = int(len(data) / batch_size)  # loop  times
         i = 0
-        while iter_num:  # iter_num==0时跳出
+        while iter_num:  # iter_num==
             # A batch of data represented by digital vectors
             batch_data = data[i:i + batch_size]
             batched_labels = labels[i:i + batch_size]
@@ -167,7 +163,7 @@ def data_generator(file_path_list, batch_size):
 
 def get_gen_path_list(file_path_list, step_len, last_begin):
     """
-        1.文件列表 file list
+        1 file list
     """
     file_path_list_len = len(file_path_list)
     if file_path_list_len <= step_len:
@@ -195,7 +191,8 @@ def data_generator_from_list(file_path_list, batch_size, step_len):
     # step_len = 10
     last_begin = 0
     while True:
-        path_list, last_begin = get_gen_path_list(file_path_list, step_len, last_begin)
+        path_list, last_begin = get_gen_path_list(
+            file_path_list, step_len, last_begin)
         data, labels = load_file_list(path_list)
 
         iter_num = int(len(data) / batch_size)  # loop  times
@@ -228,8 +225,10 @@ def data_generator_from_list_two(file_paths_list, batch_size, step_len):
     last_begin_origin = 0
     last_begin_hard = 0
     while True:
-        origin_path_list, last_begin_origin = get_gen_path_list(origin_file_paths, step_len, last_begin_origin)
-        hard_path_list, last_begin_hard = get_gen_path_list(origin_file_paths, step_len, last_begin_hard)
+        origin_path_list, last_begin_origin = get_gen_path_list(
+            origin_file_paths, step_len, last_begin_origin)
+        hard_path_list, last_begin_hard = get_gen_path_list(
+            origin_file_paths, step_len, last_begin_hard)
         origin_data, origin_labels = load_file_list(origin_path_list)
         hard_data, hard_labels = load_file_list(hard_path_list)
         iter_num = int(len(origin_data) / batch_size)  # loop  times
@@ -313,3 +312,4 @@ def produce_val_data(all_vector, file_len):
             for pkl1 in val_data:
                 com_str = 'mv  ' + pkl1 + '   ' + path2
                 os.system(com_str)
+

@@ -3,16 +3,15 @@
 # datetime:2022/3/6 20:45
 from tensorflow_core.python.keras.callbacks import EarlyStopping
 
-from preprocess.process_data import *
-from preprocess.load_data import *
-from tools.oth_tools import *
-from model.bgru_generator_model import *
+from src.preprocess.load_data import *
+from src.model.bgru_generator_model import *
 import time
 from tensorflow.keras.models import Model
 
 from tensorflow.keras.callbacks import ModelCheckpoint, CSVLogger
 
-from tools.utils import get_all_files
+from src.preprocess.process_data import *
+from src.tools.utils import get_all_files
 
 """
 description：
@@ -77,14 +76,13 @@ class TranModel(object):
                                               all_file_full_path_list,
                                               all_file_name_list)
         all_data_len = self.file_len * len(dataset_path_list)
-        # dataset_path_list, all_data_len = get_file_path_list(
-        #     os.path.join(self.dataset_path, 'train'), 'origin', self.file_len)
+        print('all_data_len------', all_data_len)
         train_generator = data_generator_from_list(
             dataset_path_list, self.batch_size, self.step_len)
 
         val_x, val_y = load_data_once(
             os.path.join(self.dataset_path, 'validation'))
-        # 公式3
+        # 3
         print("train_3_1 begin ...")
         steps_epoch = int(all_data_len / self.batch_size)
         history = model_3_1.fit_generator(train_generator, epochs=self.epoch_times[0], steps_per_epoch=steps_epoch,
@@ -96,7 +94,8 @@ class TranModel(object):
 
         print("train_3_1 end ...")
         model_3_1.summary()
-        mkdir(self.model_path)
+        os.makedirs(self.model_path, exist_ok=True)
+
         model_3_1.save(model_name)
         print(checkpoint_filepath)
         print("model 3.1 saved...")
@@ -143,6 +142,7 @@ class TranModel(object):
 
         dataset_path_list.extend(dataset_path_list1)
         all_data_len = self.file_len * len(dataset_path_list)
+        print('all_data_len------', all_data_len)
         # dataset_path_list, all_data_len = get_file_path_list(
         #     os.path.join(self.dataset_path, 'train'), 'tigress', self.file_len)
         # dataset_path_list2, all_data_len2 = get_file_path_list(
@@ -165,7 +165,7 @@ class TranModel(object):
         print(history.history.keys())
         print(history.params)
         model_3_21.summary()
-        mkdir(self.model_path)
+        os.makedirs(self.model_path, exist_ok=True)
         model_3_21.save(model_name)
         print(checkpoint_filepath)
         print("model 3.21 saved...")
@@ -194,11 +194,11 @@ class TranModel(object):
 
         if all_data_len < all_data_len2:
             all_data_len = all_data_len2
-
+        print('all_data_len------', all_data_len)
         print("train_3_22 begin ...")
         steps_epoch = int(all_data_len / self.batch_size)
 
-        # 公式3
+        # 3
         print("train_3_22 begin ...")
         history = model_3_2_2.fit_generator(
             train_generator, steps_per_epoch=steps_epoch, epochs=self.epoch_times[2])
@@ -210,7 +210,7 @@ class TranModel(object):
                          outputs=[model_3_2_2.get_layer('classifier1').output,
                                   model_3_2_2.get_layer('classifier2').output])
         model322.summary()
-        mkdir(self.model_path)
+        os.makedirs(self.model_path, exist_ok=True)
         model322.save(model_name)
 
         print("model 3.22 saved...")
@@ -232,12 +232,12 @@ class TranModel(object):
             os.path.join(self.dataset_path, 'train'), 'tigress', self.file_len)
         train_generator = data_generator(dataset_path_list, self.batch_size)
 
-        # 公式3
+        # 3
         print(" train_3_3 begin ...")
         steps_epoch = int(all_data_len / self.batch_size)
         history = model_3_3.fit_generator(
             train_generator, steps_per_epoch=steps_epoch, epochs=self.epoch_times[3])
-
+        print('all_data_len------', all_data_len)
         print(history.history.keys())
         print(history.params)
         # save model
@@ -246,7 +246,7 @@ class TranModel(object):
                                  model_3_3.get_layer('classifier2').output])
         print("train_3_3 end ...")
         model33.summary()
-        mkdir(self.model_path)
+        os.makedirs(self.model_path, exist_ok=True)
         model33.save(model_name)
         print("model 3.3 saved...")
         print("step 3.3 has been trained ...")

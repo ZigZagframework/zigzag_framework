@@ -6,23 +6,20 @@
 description：bgru model
 """
 
-from tensorflow.keras.layers import Input, Lambda, Concatenate
-from tensorflow.keras.layers import Masking, Dense, Dropout, Activation, Flatten, BatchNormalization
-from tensorflow.keras.layers import LSTM, GRU
+from tensorflow.keras.layers import Input
+from tensorflow.keras.layers import Masking, Dense, Dropout
+from tensorflow.keras.layers import GRU
 from tensorflow.keras.layers import Bidirectional
-import tensorflow as tf
-from tensorflow.keras.models import Sequential, Model, load_model
-from tensorflow.keras import metrics
-from tensorflow.keras import losses, optimizers
-from tensorflow.keras import backend as K
+from tensorflow.keras.models import Model
+from tensorflow.keras import optimizers
 
-from model.zigzag_loss import *
+from src.model.zigzag_loss import *
 
 
 def generator_eva_model(model_last):
     """
-          generate  train 好的model 
-          进行 eval 
+          generate  trainmodel 
+          eval 
       """
     print('loading eva model')
     model_eva = model_last
@@ -37,9 +34,9 @@ def generator_eva_model(model_last):
 
 def generator_print_mid(model_last):
     """
-          generate  train 好的model 
-          进行 eval 
-          输出中间layer的数值
+          generate  trainmodel 
+          eval 
+         laye
       """
     print('loading eva model')
     model_eva = model_last
@@ -50,7 +47,7 @@ def generator_print_mid(model_last):
     c1 = Model(inputs=inputs, outputs=classifier1)
     c2 = Model(inputs=inputs, outputs=classifier2)
     merge_pred = model_eva.get_layer('merge_pred').output
-    # 1.加载 origin 始数据X
+    # 1 originX
     merge_data = Model(inputs=inputs, outputs=merge_pred)
     return c1, c2, merge_data
 
@@ -85,15 +82,15 @@ class GeneratorModel(object):
         # classifier layer
         c1_layer = Dense(512, activation='relu', name='c1_layer')(dropout_2)
         c2_layer = Dense(512, activation='relu', name='c2_layer')(dropout_2)
-        c1_norm = BatchNormalization()(c1_layer)
-        c2_norm = BatchNormalization()(c2_layer)
-        c1_dense = Dense(512, activation='relu', name='c1_dense')(c1_norm)
-        c2_dense = Dense(512, activation='relu', name='c2_dense')(c2_norm)
+        # c1_norm = BatchNormalization()(c1_layer)
+        # c2_norm = BatchNormalization()(c2_layer)
+        # c1_dense = Dense(512, activation='relu', name='c1_dense')(c1_norm)
+        # c2_dense = Dense(512, activation='relu', name='c2_dense')(c2_norm)
 
         classifier1 = Dense(1, activation='sigmoid',
-                            name='classifier1')(c1_dense)
+                            name='classifier1')(c1_layer)
         classifier2 = Dense(1, activation='sigmoid',
-                            name='classifier2')(c2_dense)
+                            name='classifier2')(c2_layer)
         model_3_1 = Model(inputs=inputs, outputs=[classifier1, classifier2])
         losses_c1_c2 = {'classifier1': 'binary_crossentropy',
                         'classifier2': 'binary_crossentropy'}
@@ -122,7 +119,7 @@ class GeneratorModel(object):
 
     def generator_model_3_2_2(self, model_last, model_last2):
         """
-            同时获取对抗sample和 origin 始sample,hard
+           sampl originsample,hard
         """
         print('loading 3.21 model')
         model_3_1 = model_last

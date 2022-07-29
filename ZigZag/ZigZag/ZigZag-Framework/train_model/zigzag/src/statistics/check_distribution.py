@@ -4,10 +4,10 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from scipy import stats
 
-# plt.rcParams['font.sans-serif'] = ['SimHei']  # 用来正常显示中文标签
-# plt.rcParams['axes.unicode_minus'] = False  # 用来正常显示负号
-data_list = [0.411, 0.48, 0.282, 0.32, 0.118, 0.378, 0.333, 0.246, 0.08219, 0.37037, 0.15789,
-             0.182, 0.36842, 0.33333, 0.28125, 0.26471, 0.41026, 0.36842, 0.46753, 0.32786]
+# plt.rcParams['font.sans-serif'] = ['SimHei']  #
+# plt.rcParams['axes.unicode_minus'] = False  #
+data_list = [41.1, 48, 28.2, 32, 11.8, 37.8, 33.3, 24.6, 8.2,
+             37.0, 15.8, 18.2, 36.8, 33.3, 28.1, 26.5, 41, 36.8, 46.8, 32.8]
 
 
 def check_distribution():
@@ -23,7 +23,7 @@ def check_distribution():
     '''
     # 样本标准差
     sample_std = dataSer.std()
-    print('sample_mean',sample_mean)
+    print('sample_mean', sample_mean)
 
     """
         ● 零假设：zigzag模型不满足标准，F1<0.72

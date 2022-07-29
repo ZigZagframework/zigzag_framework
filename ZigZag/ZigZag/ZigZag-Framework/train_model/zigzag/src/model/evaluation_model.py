@@ -7,21 +7,20 @@ description：model  eval
 """
 
 import math
+
 from sklearn.metrics import *
-from preprocess.process_data import *
-from preprocess.load_data import *
-from tools.oth_tools import *
-from model.bgru_generator_model import *
+from src.preprocess.load_data import *
+from src.model.bgru_generator_model import *
 
 
 def save_metrics(result_data, samples_num, result_path, classifier_name):
     """
-        写入 eval  result 到文件
-        classifier_name:分类器名称
+        eval  result
+        classifier_name
     """
     score, TP, FP, FN, precision, recall, f_score = result_data[0]
     TN = samples_num - TP - FP - FN
-    mkdir(result_path)
+    os.makedirs(result_path, exist_ok=True)
     with open(result_path + '/metrocs.txt', 'a+') as fwrite:
         fwrite.write(classifier_name + 'Metrics recode' + '\n')
         fwrite.write('cdg_ddg: ' + ' ' + str(samples_num) + '\n')
@@ -71,10 +70,10 @@ def testcase2func(result_data, test_cases, result_path, funcs_file):
 
 def evaluation_with_generator(test_dataset_path, batch_size, max_len, vector_dim, model_path, result_path):
     print("evaluation begin ... ")
-    # 1.加载model
+    # 1model
     c1_model, c2_model = generator_eva_model(model_path)
 
-    # 2.读数据
+    # 2
     dataset, labels, test_cases, funcs_file = load_test_data(test_dataset_path)
 
     test_generator = generator_of_data(
@@ -107,17 +106,6 @@ def metrics_p(y_pred, pred_threshold, y_true, result_file, model_name):
     fpr = 1 - precision
     fnr = 1 - recall
     tn, fp, fn, tp = confusion_matrix(y_true, y_pred).ravel()
-    # print(f"""----------------------------\n
-    # >>> Result: \n
-    # >>> Accuracy: {acc} \n
-    # >>> Precision: {precision}\n
-    # >>> Recall: {recall}\n
-    # >>> F1: {f_score}\n
-    # >>> tn:{tn}--fp:{fp}--fn:{fn}--tp:{tp}\n""")
-    # 误报率=1-精确率（查准率）
-    # fpr=1-precision
-    # 漏报率=1-召回率（查全率）
-    # fnr=1-recall
 
     with open(result_file, 'a+') as fwrite:
         # fwrite.write(f"model_name,acc,precision,recall,F1,tn,tp,fp,fn\n")
@@ -175,13 +163,13 @@ def evaluation_origin_data():
 #     vectorDim = 40
 #     maxLen = 500
 #     dropout = 0.2
-#     trainDatasetPath = "./dataset/zigzag/pass_hp/train/"  # 数据save path
-#     validationDatasetPath = "./dataset/zigzag/pass_hp/validation/"
-#     testDataSetPath = "./dataset/zigzag/pass_hp/test/"
-#     serialNumber = '20220407-1'  # 日期
+#     trainDatasetPath = "/data1/yjy/dataset/zigzag/pass_hp/train/"  #save path
+#     validationDatasetPath = "/data1/yjy/dataset/zigzag/pass_hp/validation/"
+#     testDataSetPath = "/data1/yjy/dataset/zigzag/pass_hp/test/"
+#     serialNumber = '20220407-1'  #
 #     modelKind = 'BGRU'  #  select model
-#     predThreshold = 0.5  # 分类正确的 Threshold
-#     modelPath = "./code/zigzag/data/model"  # model save path，需要save用户 path-
+#     predThreshold = 0.5  # Threshold
+#     modelPath = "/home/yjy/code/zigzag/data/model"  # model save pathsav path-
 #     resultPath = 'data/result'  #  result save path
 #     modelPath = os.path.join(modelPath, modelKind, serialNumber)
 #     resultPath = os.path.join(resultPath, modelKind, serialNumber)
@@ -189,9 +177,9 @@ def evaluation_origin_data():
 #     os.makedirs(resultPath, exist_ok=True)
 #     # model_file = os.path.join(modelPath, '20220407-1-3.1.h5')
 #     model_path = os.path.join(modelPath, 'model3.1-15-0.07991-0.95752-val.h5')
-#     model_file = "./code/zigzag/data/model/BGRU/20220407-1/20220407-1-3.1.h5"
+#     model_file = "/home/yjy/code/zigzag/data/model/BGRU/20220407-1/20220407-1-3.1.h5"
 #     print(model_file)
-#     for file in os.listdir('./code/zigzag/data/model/BGRU/20220407-1/'):
+#     for file in os.listdir('/home/yjy/code/zigzag/data/model/BGRU/20220407-1/'):
 #         print(file)
 #     evaluation_with_predict(testDataSetPath, batchSize, maxLen, vectorDim, modelPath, model_file, predThreshold)
 #

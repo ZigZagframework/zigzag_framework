@@ -3,23 +3,21 @@ Author: your name
 Date: 2022-02-09 17:40:38
 LastEditTime: 2022-04-06 19:37:55
 LastEditors: Please set LastEditors
-Description: 读取数据
+Description:
 '''
 import os
 import pickle
 
 import numpy as np
 from numpy.random import shuffle
-from preprocess.process_data import *
 from tensorflow.keras.models import load_model
 
-from tools.utils import get_all_files
+from src.tools.utils import get_all_files
 
 RANDOMSEED = 2018
 
 
 def return_last_count(file_name, model_path, model_name_list):
-    # TODO:精确到具体的步骤
     cycle_num = 0
     if not os.path.exists(file_name):
         with open(file_name, 'a+') as fwrite:
@@ -37,7 +35,10 @@ def return_last_count(file_name, model_path, model_name_list):
     if state_list[1] == '3.3.h5':
         cycle_num = int(state_list[0])
     else:
-        cycle_num = int(state_list[0]) - 1
+        if state_list[0] == '':
+            cycle_num = 0
+        else:
+            cycle_num = int(state_list[0]) - 1
     if cycle_num == 0:
         model_name = os.path.join(model_path, model_name_list[0])
         return load_model(model_name), cycle_num
@@ -47,14 +48,14 @@ def return_last_count(file_name, model_path, model_name_list):
 
 def load_data_once(dataset_path):
     """
-        一次性读完路径下所有数据放入内存
+
         Read all data under the path at one time and put it into memory
     """
     all_file_full_path_list = []
     all_file_name_list = []
     all_file_full_path_list, * \
         _ = get_all_files(
-            dataset_path, all_file_full_path_list, all_file_name_list)
+        dataset_path, all_file_full_path_list, all_file_name_list)
     dataset, labels = load_file_list(all_file_full_path_list)
     return dataset, labels
 
@@ -64,9 +65,9 @@ def load_file(file_path):
         read data
     """
     with open(file_path, "rb") as f:
-        dataset, labels, *_ = pickle.load(f)  # *_代表不用的变量返回值，可以为*drop，后接变量名无所谓。
+        dataset, labels, *_ = pickle.load(f)  # **drop。
     np.random.seed(RANDOMSEED)
-    np.random.shuffle(dataset)  # x  # 将数据集随机化 shuffle
+    np.random.shuffle(dataset)  # x  # shuffle
     np.random.seed(RANDOMSEED)
     np.random.shuffle(labels)  # y
     return dataset, labels
@@ -80,10 +81,10 @@ def load_file_list(file_path_list):
     labels = None
     for file_path in file_path_list:
         with open(file_path, "rb") as f:
-            x, y, *_ = pickle.load(f)  # *_代表不用的变量返回值，可以为*drop，后接变量名无所谓。
+            x, y, *_ = pickle.load(f)  # **drop。
         dataset, labels = concat_x_and_y(dataset, labels, x, y, file_path)
     np.random.seed(RANDOMSEED)
-    np.random.shuffle(dataset)  # x  # 将数据集随机化 shuffle
+    np.random.shuffle(dataset)  # x  # shuffle
     np.random.seed(RANDOMSEED)
     np.random.shuffle(labels)  # y
     return dataset, labels
@@ -91,7 +92,7 @@ def load_file_list(file_path_list):
 
 def concat_x_and_y(dataset, labels, x, y, file_path):
     """
-        拼接data and label
+       data and label
         concat data and label
     """
     if y is None or len(y) == 0:
@@ -107,35 +108,6 @@ def concat_x_and_y(dataset, labels, x, y, file_path):
             print(file_path)
             print("this file has error")
     return dataset, labels
-
-
-def load_one_file(file):
-    with open(file, 'rb') as f:
-        dataset, labels, focus, funcs_file, filenames_file = pickle.load(f)
-    return dataset, (labels, labels)
-
-
-def load_data_slices(train_dataset_path, is_change):
-    """
-        读取文件数据
-        origin_or_tigress：是否变换过，origin指 origin 始数据，tigress指经过混淆后数据
-    """
-    filename_list = []
-    for origin_or_tigress in os.listdir(train_dataset_path):
-        if origin_or_tigress != is_change:
-            continue
-        path1 = os.path.join(train_dataset_path, origin_or_tigress)
-        filename_list = os.listdir(path1)
-    train_filename = []
-    for filename in filename_list:
-        filename = str(os.path.join(path1, filename))
-        train_filename.append(filename)
-    # train_filename = list(train_filename)
-
-    return np.asarray(train_filename)
-    # train_filename = tf.constant(train_filename)
-
-    # return train_filename
 
 
 def load_test_data(test_dataset_path):
@@ -165,19 +137,21 @@ def load_test_data(test_dataset_path):
     return dataset, bin_labels, testcases, funcs
 
 
+
+
 # if __name__ == "__main__":
 #     batchSize = 64
 #     vectorDim = 40
 #     maxLen = 500
 #     dropout = 0.2
-#     trainDatasetPath = "./dataset/zigzag/test_case/"  # 数据save path
-#     validationDatasetPath = "./dataset/zigzag/pass_hp/validation/"
-#     testDataSetPath = "./dataset/zigzag/pass_hp/test/"
-#     serialNumber = 'mcd0428'  # 日期
+#     trainDatasetPath = "/data1/yjy/dataset/zigzag/test_case/"  #save path
+#     validationDatasetPath = "/data1/yjy/dataset/zigzag/pass_hp/validation/"
+#     testDataSetPath = "/data1/yjy/dataset/zigzag/pass_hp/test/"
+#     serialNumber = 'mcd0428'  #
 #     modelKind = 'BGRU'  # select model
-#     predThreshold = 0.5  # 分类正确的 Threshold
-#     modelPath = "./dataset/zigzag/model"  # model save path，需要save用户 path-/
-#     resultPath = './dataset/zigzag/result'  # result save path
+#     predThreshold = 0.5  # Threshold
+#     modelPath = "/data1/yjy/dataset/zigzag/model"  # model save pathsav path-/
+#     resultPath = '/data1/yjy/dataset/zigzag/result'  # result save path
 #     all_file_full_path_list = []
 #     all_file_name_list = []
 #     all_file_full_path_list, all_file_name_list = get_all_files(trainDatasetPath, all_file_full_path_list,

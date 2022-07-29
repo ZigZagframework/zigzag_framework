@@ -3,9 +3,9 @@
 # datetime:2022/4/27 9:22
 
 """
-description：工具类
-能重复利用的类
-解耦
+description
+
+
 """
 import pickle
 import sys
@@ -38,8 +38,8 @@ def data2pkl(parm_list, pkl_name):
 
 def process_sequences_shape(sequences, max_len, vector_dim):
     """
-        数据格式处理
-        将数据统一为 max_len*vector_dim
+
+        max_len*vector_dim
     """
     samples_len = len(sequences)
     nb_samples = np.zeros((samples_len, max_len, vector_dim))
@@ -59,8 +59,8 @@ def process_sequences_shape(sequences, max_len, vector_dim):
 
 def process_input_shape(sequence, max_len, vector_dim):
     """
-        数据格式处理
-        将数据统一为 max_len*vector_dim
+
+        max_len*vector_dim
     """
     nb_samples = np.zeros((max_len, vector_dim))
     m = 0
@@ -91,20 +91,19 @@ def get_all_files(path, all_file_full_path_list, all_file_name_list):
     """
     all_file_full_path_list:For multi-level directories, all files have full paths;
     all_file_name_list:All file names under multi-level directories
-    获取指定路径下多层目录内的所有文件全路径及文件名称
+
     Obtain the full path and file name of all files in the multi-level directory under the specified path
-    :param path: 需获取文件的指定路径 To get the specified path of the file
-    :return: 结果1 类型：list<str> ：多层目录下的，全部文件全路径；结果2 类型：list<str> ：多层目录下的，全部文件名称
+    :param path: To get the specified path of the file
+    :return:1：list<str> 2：list<str> 
 
     """
     all_file_list = os.listdir(path)
-    # 遍历该文件夹下的所有目录或文件
+    #
     for file in all_file_list:
         file_path = os.path.join(path, file)
-        # 如果是文件夹，递归调用当前函数
         if os.path.isdir(file_path):
-            get_all_files(file_path, all_file_full_path_list, all_file_name_list)
-        # 如果不是文件夹，保存文件路径及文件名
+            get_all_files(file_path, all_file_full_path_list,
+                          all_file_name_list)
         elif os.path.isfile(file_path):
             all_file_full_path_list.append(file_path)
             all_file_name_list.append(file)
